@@ -1,8 +1,3 @@
-# motionsloeb_google_sheet
+# Timetaking App made with Flutter
 
-A new Flutter project.
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+This app is made for PF Seriøse Motionsløb, to make it easier to take time of runners in a running competetion, without using time taking chips.
