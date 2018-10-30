@@ -16,15 +16,15 @@ class _StartRaceState extends State<StartRace> {
   var url;
 
   @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      url = globals.getUrl();
-    }
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    url = globals.getUrl();
+  }
 
   void _submitStartTime() {
     Map<String, String> _body = {"id": "9999991"};
-    switch(_startRace){
+    switch (_startRace) {
       case 1:
         _body = {"id": "9999991"}; //Special code for race start 1
         break;
@@ -38,6 +38,7 @@ class _StartRaceState extends State<StartRace> {
     http.post(url, body: _body).then((response) {
       print("Response status: ${response.statusCode}");
       print("Response body: ${response.body}");
+      Scaffold.of(context).showSnackBar(snackBar);
     });
   }
 
@@ -51,7 +52,6 @@ class _StartRaceState extends State<StartRace> {
         setState(() {
           _activeButton = false;
           _submitStartTime();
-          Scaffold.of(context).showSnackBar(snackBar);
         });
       };
     } else {
@@ -59,60 +59,82 @@ class _StartRaceState extends State<StartRace> {
     }
 
     return Container(
-        child: new Center(
-            child: new Padding(
-                padding: EdgeInsets.all(16.0),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new RadioListTile<int>(
-                        title: Text("Start time 1"),
-                        groupValue: _startRace,
-                        value: 1,
-                        onChanged: (int value) {
-                          setState(() {
-                            _startRace = value;
-                          });
-                        }),
-                    new RadioListTile<int>(
-                        title: Text("Start time 2"),
-                        groupValue: _startRace,
-                        value: 2,
-                        onChanged: (int value) {
-                          setState(() {
-                            _startRace = value;
-                          });
-                        }),
-                    new RadioListTile<int>(
-                      title: Text("Start time 3"),
-                      groupValue: _startRace,
-                      onChanged: (int value) {
-                        setState(() {
-                          _startRace = value;
-                        });
-                      },
-                      value: 3,
-                    ),
-                    new SizedBox(height: 24.0),
-                    new Text("Flip the switch to activate the start button"),
-                    Transform.scale(
-                        scale: 2.0,
-                        child: new Switch(
-                            onChanged: (bool value) {
+        decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            image: DecorationImage(
+                image: AssetImage("assets/bg_circle.png"),
+                alignment: Alignment(-1.5, -1.0))),
+        child: new Stack(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
+            child: new Text("Race start", style: TextStyle(fontFamily: 'GilroyBold', fontSize: 60.0, color: Colors.black.withOpacity(0.05), fontWeight: FontWeight.bold),),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
+            child: new Text("Race start", style: TextStyle(fontFamily: 'GilroyBold', fontSize: 40.0, color: Colors.white, fontWeight: FontWeight.bold),),
+          ),
+          new Container( // Hvid boks med content
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(new Radius.circular(16.0)),
+            ),
+            margin: EdgeInsets.fromLTRB(20.0, 170.0, 20.0, 170.0),
+            child: new Center(
+                child: new Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new RadioListTile<int>(
+                            title: Text("Start time 1"),
+                            groupValue: _startRace,
+                            value: 1,
+                            onChanged: (int value) {
                               setState(() {
-                                _activeButton = value;
+                                _startRace = value;
                               });
-                            },
-                            value: _activeButton)),
-                    new SizedBox(height: 32.0),
-                    new RaisedButton(
-                      color: Colors.green,
-                      child: new Text("Set start time!",
-                          style: new TextStyle(
-                              fontSize: 40.0, color: Colors.white)),
-                      onPressed: _onPressed,
-                    )
-                  ],
-                ))));
+                            }),
+                        new RadioListTile<int>(
+                            title: Text("Start time 2"),
+                            groupValue: _startRace,
+                            value: 2,
+                            onChanged: (int value) {
+                              setState(() {
+                                _startRace = value;
+                              });
+                            }),
+                        new RadioListTile<int>(
+                          title: Text("Start time 3"),
+                          groupValue: _startRace,
+                          onChanged: (int value) {
+                            setState(() {
+                              _startRace = value;
+                            });
+                          },
+                          value: 3,
+                        ),
+                        new SizedBox(height: 24.0),
+                        new Text(
+                            "Flip the switch to activate the start button"),
+                        Transform.scale(
+                            scale: 2.0,
+                            child: new Switch(
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    _activeButton = value;
+                                  });
+                                },
+                                value: _activeButton)),
+                        new SizedBox(height: 32.0),
+                        new RaisedButton(
+                          color: Colors.green,
+                          child: new Text("Set start time!",
+                              style: new TextStyle(
+                                  fontSize: 40.0, color: Colors.white)),
+                          onPressed: _onPressed,
+                        )
+                      ],
+                    ))))
+        ],));
   }
 }

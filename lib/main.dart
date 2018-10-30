@@ -11,13 +11,17 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  // This widget is the root of the application
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
         title: 'PF - Tidstagning',
         theme: new ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.purple,
+          accentColor: Color.fromRGBO(155, 148, 224, 1.0),
+          toggleableActiveColor: Color.fromRGBO(155, 148, 224, 1.0),
+          primaryColorBrightness: Brightness.light,
+          backgroundColor: Color.fromRGBO(230, 240, 246, 1.0),
         ),
         home: new MainPage());
   }
@@ -43,21 +47,68 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      globals.getDataFromLocal();
-    }
+  void initState() {
+    super.initState();
+    globals.getDataFromLocal();
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: new Scaffold(
-          appBar: new AppBar(
-            title: new Text("PF Seriøse Motionsløb"),
+  void aboutAction(String choice){
+    if(choice == globals.about){
+      print('Piilmann');
+      _aboutDialog();
+    }
+  }
+
+  Future<Null> _aboutDialog() async {
+  return showDialog<Null>(
+    context: context,
+    barrierDismissible: true, // user can tab outside alert window to close
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Om denne app'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Denne app er lavet af Christoffer Piilmann (s143781) - DTU 2018'),
+            ],
           ),
-          bottomNavigationBar: BottomNavigationBar(
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Cool!'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+_buildAppbar(){
+  return new AppBar(
+             backgroundColor: Colors.transparent,
+             elevation: 0.0,
+            title: new Text("PF Seriøse Motionsløb"),
+            actions: <Widget>[
+              new PopupMenuButton<String>(
+                onSelected: aboutAction,
+                itemBuilder: (BuildContext context) {
+                  return globals.choices.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+              )
+            ],
+          );
+}
+
+_buildBottomNavigationBar(){
+  return new BottomNavigationBar(
             onTap: onTapped,
             currentIndex: _currentIndex,
             items: <BottomNavigationBarItem>[
@@ -70,7 +121,7 @@ class _MainPageState extends State<MainPage> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.directions_run),
                   title: Title(
-                    child: Text("Race start"),
+                    child: Text("Race start"), 
                     color: Colors.lightGreen,
                   )),
               BottomNavigationBarItem(
@@ -80,7 +131,15 @@ class _MainPageState extends State<MainPage> {
                     color: Colors.lightGreen,
                   ))
             ],
-          ),
+          );
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: new Scaffold(
+          bottomNavigationBar: _buildBottomNavigationBar(),
           body: _children[_currentIndex]),
     );
   }

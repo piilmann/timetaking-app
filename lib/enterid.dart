@@ -8,16 +8,15 @@ class EnterId extends StatefulWidget {
 }
 
 class _EnterIdState extends State<EnterId> {
-
   var url;
   String _idNumber = "";
 
   @override
   void initState() {
-      // TODO: implement initState
-      super.initState();
-      url = globals.getUrl();
-    }
+    // TODO: implement initState
+    super.initState();
+    url = globals.getUrl();
+  }
 
   void _submitId() {
     if (_idNumber.length > 0) {
@@ -49,162 +48,190 @@ class _EnterIdState extends State<EnterId> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-          child: new Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          new Container(
-              child: Center(
-                  child: new Text(_idNumber, style: TextStyle(fontSize: 60.0))),
-              margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0)),
-          // new Container(
-          //   margin: EdgeInsets.all(140.0),
-          // ), //Main screen
-          Padding(
-            padding: const EdgeInsets.only(bottom: 32.0),
-            child: new Column(
-              //Keyboard
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                                new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("1");
-                        },
-                        child: Text(
-                          "1",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("2");
-                        },
-                        child: Text(
-                          "2",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("3");
-                        },
-                        child: Text(
-                          "3",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                    ]),
-                new SizedBox(height: 16.0),
-                new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("4");
-                        },
-                        child: Text(
-                          "4",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("5");
-                        },
-                        child: Text(
-                          "5",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("6");
-                        },
-                        child: Text(
-                          "6",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                    ]),
-                new SizedBox(
-                  height: 16.0,
+        decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            image: DecorationImage(
+                image: AssetImage("assets/bg_circle.png"),
+                alignment: Alignment(-1.5, -1.0))),
+        child: new Stack(children: <Widget>[
+                    Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
+            child: new Text("Runner ID",
+              style: TextStyle(
+                fontFamily: 'GilroyBold', 
+                fontSize: 60.0, color: Colors.black.withOpacity(0.05), 
+                fontWeight: FontWeight.bold)
                 ),
-                new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("7");
-                        },
-                        child: Text(
-                          "7",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("8");
-                        },
-                        child: Text(
-                          "8",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("9");
-                        },
-                        child: Text(
-                          "9",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                    ]),
-                new SizedBox(
-                  height: 16.0,
-                ),
-                new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      new RaisedButton(
-                        onPressed: () {
-                          _deleteNumber();
-                        },
-                        color: Colors.red,
-                        child: new Icon(
-                          Icons.backspace,
-                          size: 50.0,
-                        ),
-                      ),
-                      new RaisedButton(
-                        onPressed: () {
-                          _addNumber("0");
-                        },
-                        child: Text(
-                          "0",
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      ),
-                      new RaisedButton(
-                          onPressed: () {
-                            _submitId();
-                          },
-                          color: Colors.green,
-                          child: Icon(
-                            Icons.check,
-                            size: 50.0,
-                          ))
-                    ]),
-              ],
-            ),
           ),
-        ],
-      ));
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
+            child: new Text(
+              "Runner ID", 
+              style: TextStyle(
+                fontFamily: 'GilroyBold', 
+                fontSize: 40.0, color: Colors.white, 
+                fontWeight: FontWeight.bold)
+                ),
+          ),
+          new Column( // Main content
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            new Container(
+                child: Center(
+                    child:
+                        new Text(_idNumber, 
+                        style: TextStyle(
+                          fontSize: 60.0))),
+                margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0)),
+            // new Container(
+            //   margin: EdgeInsets.all(140.0),
+            // ), //Main screenª
+            Padding(
+              padding: const EdgeInsets.only(bottom: 32.0),
+              child: new Column(
+                //Keyboard
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("1");
+                          },
+                          child: Text(
+                            "1",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("2");
+                          },
+                          child: Text(
+                            "2",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("3");
+                          },
+                          child: Text(
+                            "3",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                      ]),
+                  new SizedBox(height: 16.0),
+                  new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("4");
+                          },
+                          child: Text(
+                            "4",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("5");
+                          },
+                          child: Text(
+                            "5",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("6");
+                          },
+                          child: Text(
+                            "6",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                      ]),
+                  new SizedBox(
+                    height: 16.0,
+                  ),
+                  new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("7");
+                          },
+                          child: Text(
+                            "7",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("8");
+                          },
+                          child: Text(
+                            "8",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("9");
+                          },
+                          child: Text(
+                            "9",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                      ]),
+                  new SizedBox(
+                    height: 16.0,
+                  ),
+                  new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        new RaisedButton(
+                          onPressed: () {
+                            _deleteNumber();
+                          },
+                          color: Colors.red,
+                          child: new Icon(
+                            Icons.backspace,
+                            size: 50.0,
+                          ),
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            _addNumber("0");
+                          },
+                          child: Text(
+                            "0",
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        ),
+                        new RaisedButton(
+                            onPressed: () {
+                              _submitId();
+                            },
+                            color: Colors.green,
+                            child: Icon(
+                              Icons.check,
+                              size: 50.0,
+                            ))
+                      ]),
+                ],
+              ),
+            ),
+          ],
+        )]  
+          ));
   }
 }
