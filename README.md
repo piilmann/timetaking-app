@@ -28,3 +28,6 @@ The app makes simple REST calls to the specific URL endpoint specified in the se
 `{"id":"9999992"}` - Request sent when clicking the start time button for the second starting time 
 
 `{"id":"9999993"}` - Request sent when clicking the start time button for the third starting time 
+
+# Download
+[Download link](https://github.com/piilmann/timetaking-app/releases)
