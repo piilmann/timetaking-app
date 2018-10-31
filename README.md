@@ -10,6 +10,7 @@
   </a>
 </td>
 </tr></table></div>
+(Screenshots taking on a iOS Simulator)
 
 This app is made to make it easier to take time of runners in a running competetion, without using time taking chips.
 
