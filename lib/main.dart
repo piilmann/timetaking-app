@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:motionsloeb_google_sheet/enterid.dart';
 import 'package:motionsloeb_google_sheet/startrace.dart';
 import 'package:motionsloeb_google_sheet/settings.dart';
+import 'package:motionsloeb_google_sheet/mainmenu.dart';
 import 'package:flutter/rendering.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
@@ -22,8 +23,9 @@ class MyApp extends StatelessWidget {
           toggleableActiveColor: Color.fromRGBO(155, 148, 224, 1.0),
           primaryColorBrightness: Brightness.light,
           backgroundColor: Color.fromRGBO(230, 240, 246, 1.0),
+          buttonColor: Colors.grey.shade100
         ),
-        home: new MainPage());
+        home: new MainMenu());
   }
 }
 

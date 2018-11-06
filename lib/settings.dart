@@ -21,6 +21,13 @@ class _SettingsPageState extends State<SettingsPage> {
     qr = globals.getUrl();
   }
 
+  void deleteUrl() {
+    setState(() {
+      qr = "";
+    });
+    globals.setUrl("");
+  }
+
   void toggleCamera() {
     setState(() {
       camState = !camState;
@@ -34,8 +41,9 @@ class _SettingsPageState extends State<SettingsPage> {
           borderRadius: BorderRadius.all(new Radius.circular(16.0)),
         ),
         margin: EdgeInsets.fromLTRB(20.0, 170.0, 20.0, 170.0),
-        child: new SafeArea(
-          child: Column(
+        child: new Container(
+          padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+          child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -60,13 +68,22 @@ class _SettingsPageState extends State<SettingsPage> {
                     icon: new Icon(Icons.photo_camera),
                     label: new Text("Scan QR code"),
                   ),
-                  new Container(width: 16.0),
+                  new Container(width: 8.0),
                   new RaisedButton.icon(
                     onPressed: () {
                       globals.setUrl(qr);
+                      Scaffold.of(context).showSnackBar(savedSnackbar);
                     },
                     icon: new Icon(Icons.save),
                     label: new Text("Save"),
+                  ),
+                  new Container(width: 8.0),
+                  new RaisedButton.icon(
+                    onPressed: () {
+                      deleteUrl();
+                    },
+                    icon: new Icon(Icons.delete),
+                    label: new Text("Reset"),
                   ),
                 ],
               ),
@@ -95,7 +112,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 decoration: new BoxDecoration(
                                   color: Colors.transparent,
                                   border: Border.all(
-                                      color: Colors.orange,
+                                      color: Theme.of(context)
+                                          .toggleableActiveColor,
                                       width: 10.0,
                                       style: BorderStyle.solid),
                                 ),

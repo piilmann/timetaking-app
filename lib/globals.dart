@@ -1,6 +1,5 @@
 library motionsloeb_google_sheet.globals;
 import 'dart:async';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String _url;
