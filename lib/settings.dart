@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 import 'package:qr_mobile_vision/qr_camera.dart';
+import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widget;
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -40,15 +41,17 @@ class _SettingsPageState extends State<SettingsPage> {
           color: Colors.white,
           borderRadius: BorderRadius.all(new Radius.circular(16.0)),
         ),
-        margin: EdgeInsets.fromLTRB(20.0, 170.0, 20.0, 170.0),
+        margin: EdgeInsets.fromLTRB(20.0, 170.0, 20.0, 60.0),
         child: new Container(
           padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              new Container(margin: EdgeInsets.all(8.0),child: new Text("In order to set up a new event, you need to set up an Google Sheet as backend."),),
+              new RaisedButton(onPressed: () {}, child: new Text("Click here to setup sheet")),
               new Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+                padding: EdgeInsets.all(16.0),
                 child: new TextField(
                   autofocus: false,
                   controller: TextEditingController(text: qr),
@@ -60,32 +63,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
               ),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new RaisedButton.icon(
-                    onPressed: toggleCamera,
-                    icon: new Icon(Icons.photo_camera),
-                    label: new Text("Scan QR code"),
-                  ),
-                  new Container(width: 8.0),
-                  new RaisedButton.icon(
-                    onPressed: () {
-                      globals.setUrl(qr);
-                      Scaffold.of(context).showSnackBar(savedSnackbar);
-                    },
-                    icon: new Icon(Icons.save),
-                    label: new Text("Save"),
-                  ),
-                  new Container(width: 8.0),
-                  new RaisedButton.icon(
-                    onPressed: () {
-                      deleteUrl();
-                    },
-                    icon: new Icon(Icons.delete),
-                    label: new Text("Reset"),
-                  ),
-                ],
+              new Container(
+                child: new RaisedButton.icon(
+                  onPressed: toggleCamera,
+                  icon: new Icon(Icons.photo_camera),
+                  label: new Text("Scan QR code"),
+                ),
               ),
               new Container(
                   padding: EdgeInsets.only(top: 16.0),
@@ -122,6 +105,20 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         )
                       : new Center()),
+              new Expanded(
+                child: new Container(),
+              ),
+              new RaisedButton.icon(
+                onPressed: () {
+                  globals.setUrl(qr);
+                  Scaffold.of(context).showSnackBar(savedSnackbar);
+                },
+                icon: new Icon(Icons.arrow_forward),
+                label: new Text("Save and continue"),
+              ),
+              new SizedBox(
+                height: 16.0,
+              )
             ],
           ),
         ));
@@ -129,38 +126,13 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            image: DecorationImage(
-                image: AssetImage("assets/bg_circle.png"),
-                alignment: Alignment(-1.5, -1.0))),
-        child: new Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
-              child: new Text(
-                "Settings",
-                style: TextStyle(
-                    fontFamily: 'GilroyBold',
-                    fontSize: 60.0,
-                    color: Colors.black.withOpacity(0.05),
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
-              child: new Text(
-                "Settings",
-                style: TextStyle(
-                    fontFamily: 'GilroyBold',
-                    fontSize: 40.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            _buildContent()
-          ],
-        ));
+    return Material(
+        child: Stack(children: <Widget>[
+      widget.Background(
+        title: "Setup",
+      ),
+      _buildContent(),
+      new Column(children: <Widget>[new AppBar(backgroundColor: Colors.transparent, elevation: 0.0)],),
+    ]));
   }
 }
