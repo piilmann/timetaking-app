@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widgets;
+import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
 class MainMenu extends StatefulWidget {
   @override
@@ -8,32 +9,95 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
+  final _controller = new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool showAvailibilityError = false;
+
+  final _createEvent = "Opret event";
+  final _connectEvent = "Tilslut event";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    try {
+      var currentId = globals.getEventId();
+
+      if (currentId > 99999) {
+        Navigator.of(context).pushReplacementNamed("/main");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void submit() {
+    int enteredId = int.parse(_controller.text);
+
+    if (_formKey.currentState.validate()) {
+      globals.isIdAvalible(enteredId).then((availibility) {
+        if (availibility == true) {
+          //ID does not exists, therefore there is NOT an event here
+          setState(() {
+            showAvailibilityError = true;
+          });
+        } else {
+          //ID exists and therefore we move on
+          globals.setEventId(enteredId);
+          globals.getUrlFromDB(enteredId);
+
+          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacementNamed("/main");
+        }
+      });
+    }
+  }
+
   Future<Null> _tilslutDialog() async {
     return showDialog<Null>(
       context: context,
       barrierDismissible: false, // user can tab outside alert window to close
       builder: (BuildContext context) {
+        _formKey.currentState?.validate();
         return AlertDialog(
-          title: Text('Tilslut event'),
-          content: new TextField(
-            decoration: InputDecoration(hintText: "Skriv event nummer her"),
-            keyboardType: TextInputType.number,
-            maxLength: 4,
-            inputFormatters: [WhitelistingTextInputFormatter(RegExp("[0-9]"))],
+          title: Text('Connect to existing event'),
+          content: new Form(
+            key: _formKey,
+            child: new TextFormField(
+              decoration: InputDecoration(hintText: "Type event number here"),
+              keyboardType: TextInputType.number,
+              controller: _controller,
+              validator: (value) {
+                if (value.length < 6 && value.length > 0) {
+                  return "Please enter the full ID";
+                }
+                if (showAvailibilityError) {
+                  showAvailibilityError = false;
+                  return "No event with this ID exists.";
+                }
+              },
+              maxLength: 6,
+              inputFormatters: [
+                WhitelistingTextInputFormatter(RegExp("[0-9]"))
+              ],
+            ),
           ),
-          
           actions: <Widget>[
             FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Row(children: <Widget>[new Text("Afbryd"),new Icon(Icons.close)],)),
-                          FlatButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/main');
-              },
-              child: Row(children: <Widget>[new Text("Tilslut"),new Icon(Icons.arrow_forward)],))
-
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Row(
+                  children: <Widget>[new Text("Cancel"), new Icon(Icons.close)],
+                )),
+            FlatButton(
+                onPressed: submit,
+                child: Row(
+                  children: <Widget>[
+                    new Text("Connect"),
+                    new Icon(Icons.arrow_forward)
+                  ],
+                ))
           ],
         );
       },
@@ -61,10 +125,10 @@ class _MainMenuState extends State<MainMenu> {
                       onPressed: () {
                         Navigator.pushNamed(context, "/settings");
                       },
-                      child: new Text("Opret event",
+                      child: new Text(_createEvent,
                           style: new TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
+                              fontSize: 18.0,
                               color: Colors.white,
                               shadows: <Shadow>[new Shadow(blurRadius: 2.0)])),
                     ),
@@ -77,10 +141,10 @@ class _MainMenuState extends State<MainMenu> {
                     child: new OutlineButton(
                       borderSide: new BorderSide(color: Colors.white70),
                       onPressed: _tilslutDialog,
-                      child: new Text("Tilslut event",
+                      child: new Text(_connectEvent,
                           style: new TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
+                              fontSize: 18.0,
                               color: Colors.white,
                               shadows: <Shadow>[new Shadow(blurRadius: 2.0)])),
                     ),
@@ -92,9 +156,13 @@ class _MainMenuState extends State<MainMenu> {
         ),
         // new Column(children: <Widget>[new AppBar(backgroundColor: Colors.transparent, elevation: 0.0)],),
         new Center(
-            child: new FlutterLogo(
-          size: 200.0,
-        ))
+          child: new Container(
+            margin: EdgeInsets.all(60.0),
+            child: new Image(
+              image: new AssetImage("assets/running-man-white.png"),
+            ),
+          ),
+        ),
       ],
     ));
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 
 class StartRace extends StatefulWidget {
   @override
@@ -59,61 +60,49 @@ class _StartRaceState extends State<StartRace> {
     }
 
     return Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            image: DecorationImage(
-                image: AssetImage("assets/bg_circle.png"),
-                alignment: Alignment(-1.5, -1.0))),
         child: new Stack(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
-            child: new Text("Race start", style: TextStyle(fontFamily: 'GilroyBold', fontSize: 60.0, color: Colors.black.withOpacity(0.05), fontWeight: FontWeight.bold),),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
-            child: new Text("Race start", style: TextStyle(fontFamily: 'GilroyBold', fontSize: 40.0, color: Colors.white, fontWeight: FontWeight.bold),),
-          ),
+          new Background(title: "Race start"), //Custom baggrund defineret i custom_widgets.dart
           new Container( // Hvid boks med content
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(new Radius.circular(16.0)),
-            ),
-            margin: EdgeInsets.fromLTRB(20.0, 170.0, 20.0, 170.0),
+            // decoration: BoxDecoration(
+            //   color: Colors.white,
+            //   borderRadius: BorderRadius.all(new Radius.circular(16.0)),
+            // ),
+            margin: EdgeInsets.fromLTRB(20.0, 170.0, 20.0, 40.0),
             child: new Center(
                 child: new Padding(
                     padding: EdgeInsets.all(8.0),
                     child: new Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        new RadioListTile<int>(
-                            title: Text("Start time 1"),
-                            groupValue: _startRace,
-                            value: 1,
-                            onChanged: (int value) {
-                              setState(() {
-                                _startRace = value;
-                              });
-                            }),
-                        new RadioListTile<int>(
-                            title: Text("Start time 2"),
-                            groupValue: _startRace,
-                            value: 2,
-                            onChanged: (int value) {
-                              setState(() {
-                                _startRace = value;
-                              });
-                            }),
-                        new RadioListTile<int>(
-                          title: Text("Start time 3"),
-                          groupValue: _startRace,
-                          onChanged: (int value) {
-                            setState(() {
-                              _startRace = value;
-                            });
-                          },
-                          value: 3,
-                        ),
-                        new SizedBox(height: 24.0),
+                        // new RadioListTile<int>(
+                        //     title: Text("Start time 1"),
+                        //     groupValue: _startRace,
+                        //     value: 1,
+                        //     onChanged: (int value) {
+                        //       setState(() {
+                        //         _startRace = value;
+                        //       });
+                        //     }),
+                        // new RadioListTile<int>(
+                        //     title: Text("Start time 2"),
+                        //     groupValue: _startRace,
+                        //     value: 2,
+                        //     onChanged: (int value) {
+                        //       setState(() {
+                        //         _startRace = value;
+                        //       });
+                        //     }),
+                        // new RadioListTile<int>(
+                        //   title: Text("Start time 3"),
+                        //   groupValue: _startRace,
+                        //   onChanged: (int value) {
+                        //     setState(() {
+                        //       _startRace = value;
+                        //     });
+                        //   },
+                        //   value: 3,
+                        // ),
+                        // new SizedBox(height: 24.0),
                         new Text(
                             "Flip the switch to activate the start button"),
                         Transform.scale(

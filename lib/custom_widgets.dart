@@ -18,8 +18,8 @@ class MainBackground extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: <Color>[
-                      Color.fromRGBO(155, 148, 244, 1.0),
-                      Color.fromRGBO(226, 212, 231, 1.0)
+                      Color.fromRGBO(233, 134, 196, 1.0),
+                      Color.fromRGBO(120, 80, 205, 1.0)
                     ])),
             // image: DecorationImage(
             //     image: AssetImage("assets/bg_circle.png"),
@@ -37,17 +37,23 @@ class MainBackground extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
-                  child: new Text(
-                    title,
-                    style: TextStyle(
-                        fontFamily: 'GilroyBold',
-                        fontSize: 40.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                new Padding(
+                  padding: EdgeInsets.only(top: 100.0),
+                  child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  
+                  //padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
+                  children: <Widget>[
+                    new Text(
+                      title,
+                      style: TextStyle(
+                          fontFamily: 'GilroyBold',
+                          fontSize: 40.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),)
               ],
             )));
   }
@@ -69,7 +75,8 @@ class Background extends StatelessWidget {
                 color: Theme.of(context).backgroundColor,
                 image: DecorationImage(
                     image: AssetImage("assets/bg_circle.png"),
-                    alignment: Alignment(-1.5, -1.0))),
+                    alignment: Alignment(0, -1.0)
+                    )),
             child: new Stack(
               children: <Widget>[
                 Padding(

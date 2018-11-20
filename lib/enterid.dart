@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 
 class EnterId extends StatefulWidget {
   @override
@@ -48,190 +49,101 @@ class _EnterIdState extends State<EnterId> {
     });
   }
 
+  Widget _buildButton(String number) {
+    return new RaisedButton(
+      onPressed: () {
+        _addNumber(number);
+      },
+      child: Text(
+        number,
+        style: TextStyle(color: Colors.black, fontSize: 40.0),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            image: DecorationImage(
-                image: AssetImage("assets/bg_circle.png"),
-                alignment: Alignment(-1.5, -1.0))),
         child: new Stack(children: <Widget>[
-                    Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
-            child: new Text("Runner ID",
-              style: TextStyle(
-                fontFamily: 'GilroyBold', 
-                fontSize: 60.0, color: Colors.black.withOpacity(0.05), 
-                fontWeight: FontWeight.bold)
-                ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
-            child: new Text(
-              "Runner ID", 
-              style: TextStyle(
-                fontFamily: 'GilroyBold', 
-                fontSize: 40.0, color: Colors.white, 
-                fontWeight: FontWeight.bold)
-                ),
-          ),
-          new Column( // Main content
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            new Container(
-                child: Center(
-                    child:
-                        new Text(_idNumber, 
-                        style: TextStyle(
-                          fontSize: 60.0))),
-                margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0)),
-            // new Container(
-            //   margin: EdgeInsets.all(140.0),
-            // ), //Main screenª
-            Padding(
-              padding: const EdgeInsets.only(bottom: 32.0),
-              child: new Column(
-                //Keyboard
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("1");
-                          },
-                          child: Text(
-                            "1",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("2");
-                          },
-                          child: Text(
-                            "2",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("3");
-                          },
-                          child: Text(
-                            "3",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                      ]),
-                  new SizedBox(height: 16.0),
-                  new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("4");
-                          },
-                          child: Text(
-                            "4",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("5");
-                          },
-                          child: Text(
-                            "5",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("6");
-                          },
-                          child: Text(
-                            "6",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                      ]),
-                  new SizedBox(
-                    height: 16.0,
-                  ),
-                  new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("7");
-                          },
-                          child: Text(
-                            "7",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("8");
-                          },
-                          child: Text(
-                            "8",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("9");
-                          },
-                          child: Text(
-                            "9",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                      ]),
-                  new SizedBox(
-                    height: 16.0,
-                  ),
-                  new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new RaisedButton(
-                          onPressed: () {
-                            _deleteNumber();
-                          },
-                          color: Colors.red,
-                          child: new Icon(
-                            Icons.backspace,
-                            size: 50.0,
-                          ),
-                        ),
-                        new RaisedButton(
-                          onPressed: () {
-                            _addNumber("0");
-                          },
-                          child: Text(
-                            "0",
-                            style: TextStyle(fontSize: 40.0),
-                          ),
-                        ),
-                        new RaisedButton(
+          new Background(title: "Timetaker"), //Custom baggrund defineret i custom_widgets.dart
+          new Column(
+            // Main content
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              new Container(
+                  child: Center(
+                      child: new Text(_idNumber,
+                          style: TextStyle(
+                              color: Colors.white,
+                              shadows: [BoxShadow(blurRadius: 3.0)],
+                              fontSize: 60.0))),
+                  margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0)),
+              // new Container(
+              //   margin: EdgeInsets.all(140.0),
+              // ), //Main screenª
+              Padding(
+                padding: const EdgeInsets.only(bottom: 32.0),
+                child: new Column(
+                  //Keyboard
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          _buildButton("1"),
+                          _buildButton("2"),
+                          _buildButton("3"),
+                        ]),
+                    new SizedBox(height: 16.0),
+                    new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          _buildButton("4"),
+                          _buildButton("5"),
+                          _buildButton("6"),
+                        ]),
+                    new SizedBox(
+                      height: 16.0,
+                    ),
+                    new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          _buildButton("7"),
+                          _buildButton("8"),
+                          _buildButton("9"),
+                        ]),
+                    new SizedBox(
+                      height: 16.0,
+                    ),
+                    new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new RaisedButton(
                             onPressed: () {
-                              _submitId();
+                              _deleteNumber();
                             },
-                            color: Colors.green,
-                            child: Icon(
-                              Icons.check,
+                            color: Colors.red,
+                            child: new Icon(
+                              Icons.backspace,
                               size: 50.0,
-                            ))
-                      ]),
-                ],
+                            ),
+                          ),
+                          _buildButton("0"),
+                          new RaisedButton(
+                              onPressed: () {
+                                _submitId();
+                              },
+                              color: Colors.green,
+                              child: Icon(
+                                Icons.check,
+                                size: 50.0,
+                              ))
+                        ]),
+                  ],
+                ),
               ),
-            ),
-          ],
-        )]  
-          ));
+            ],
+          )
+        ]));
   }
 }

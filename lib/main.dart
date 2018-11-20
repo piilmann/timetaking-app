@@ -3,6 +3,8 @@ import 'package:motionsloeb_google_sheet/enterid.dart';
 import 'package:motionsloeb_google_sheet/startrace.dart';
 import 'package:motionsloeb_google_sheet/settings.dart';
 import 'package:motionsloeb_google_sheet/mainmenu.dart';
+import 'package:motionsloeb_google_sheet/viewsheet.dart';
+import 'package:motionsloeb_google_sheet/info.dart';
 import 'package:flutter/rendering.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Color.fromRGBO(230, 240, 246, 1.0),
             buttonColor: Colors.grey.shade100),
         // Start the app with the "/" named route. In our case, the app will start
-        // on the FirstScreen Widget
+        // on the MainMenu Widget
         initialRoute: '/',
         routes: {
           '/': (context) => MainMenu(),
@@ -41,14 +43,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   final List<Widget> _children = [
+    new InfoPage(),
     new StartRace(),
-    new EnterId()
+    new EnterId(),
+    new ViewSheet()
   ];
 
   void onTapped(int index) {
     setState(() {
+      _controller.jumpToPage(index);
       _currentIndex = index;
     });
   }
@@ -64,6 +69,27 @@ class _MainPageState extends State<MainPage> {
       print('Piilmann');
       _aboutDialog();
     }
+    if (choice == globals.logout) {
+      print('Log ud');
+      globals.setUrl(null);
+      globals.setEventId(null);
+      Navigator.of(context).pushReplacementNamed('/');
+    }
+  }
+
+  String getFormattedEventId() {
+    String result;
+    int id = globals.getEventId();
+
+    if (id.toString().length == 6) {
+      String one = id.toString().substring(0, 3);
+      String two = id.toString().substring(3, 6);
+      result = one + " " + two;
+    } else {
+      result = globals.getEventId().toString();
+    }
+
+    return result;
   }
 
   Future<Null> _aboutDialog() async {
@@ -94,10 +120,11 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  _buildAppbar() {
+  buildAppbar() {
     return new AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
+      title: Text("Event: " + getFormattedEventId()),
       actions: <Widget>[
         new PopupMenuButton<String>(
           onSelected: aboutAction,
@@ -105,7 +132,7 @@ class _MainPageState extends State<MainPage> {
             return globals.choices.map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
-                child: Text(choice),
+                child: new Row(children: <Widget>[new Text(choice)]),
               );
             }).toList();
           },
@@ -118,7 +145,15 @@ class _MainPageState extends State<MainPage> {
     return new BottomNavigationBar(
       onTap: onTapped,
       currentIndex: _currentIndex,
+      type: BottomNavigationBarType.fixed,
+
       items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            title: Title(
+              child: Text("Info"),
+              color: Colors.lightGreen,
+            )),
         BottomNavigationBarItem(
             icon: Icon(Icons.directions_run),
             title: Title(
@@ -128,22 +163,48 @@ class _MainPageState extends State<MainPage> {
         BottomNavigationBarItem(
             icon: Icon(Icons.dialpad),
             title: Title(
-              child: Text("Runner ID"),
+              child: Text("Timetaker"),
+              color: Colors.lightGreen,
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            title: Title(
+              child: Text("Times"),
               color: Colors.lightGreen,
             ))
       ],
     );
   }
 
+  final _controller = PageController();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 4,
       child: new Scaffold(
           bottomNavigationBar: _buildBottomNavigationBar(),
-          body: new Stack(children: <Widget>[_children[_currentIndex], _buildAppbar()],)
-          
-          ),
+          body: new Stack(
+            children: <Widget>[
+              new PageView(
+                controller: _controller,
+                onPageChanged: (int i) {
+                  setState(() {
+                    _currentIndex = i;
+                  });
+                },
+                children: <Widget>[
+                  new Container(child: _children[0]),
+                  new Container(child: _children[1]),
+                  new Container(child: _children[2]),
+                  new Container(child: _children[3])
+                ],
+              ),
+              new Column(
+                children: <Widget>[buildAppbar()],
+              ),
+            ],
+          )),
     );
   }
 }
