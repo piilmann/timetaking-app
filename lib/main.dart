@@ -6,11 +6,18 @@ import 'package:motionsloeb_google_sheet/mainmenu.dart';
 import 'package:motionsloeb_google_sheet/viewsheet.dart';
 import 'package:motionsloeb_google_sheet/info.dart';
 import 'package:flutter/rendering.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
 void main() {
   debugPaintSizeEnabled = false;
   runApp(new MyApp());
+  firebaseSettings();
+}
+
+void firebaseSettings(){
+  var db = Firestore.instance;
+  db.settings(timestampsInSnapshotsEnabled: true);
 }
 
 class MyApp extends StatelessWidget {

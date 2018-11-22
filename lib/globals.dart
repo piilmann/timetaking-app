@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 String _url;
 int _eventid;
+DateTime _starttime = DateTime.now();
 Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 const about = "Om denne app";
@@ -27,6 +28,15 @@ void setUrl(String urlInput) {
 void setEventId(int id) {
   _eventid = id;
   _saveDataLocal();
+}
+
+void setStarttime(DateTime starttime) {
+  _starttime = starttime;
+  _saveDataLocal();
+}
+
+DateTime getStarttime() {
+  return _starttime;
 }
 
 String getUrl() {
@@ -102,12 +112,21 @@ Future<Null> _saveDataLocal() async {
   final SharedPreferences prefs = await _prefs;
   prefs.setString("url", _url);
   prefs.setInt("eventid", _eventid);
+  prefs.setString("starttime", _starttime.toIso8601String());
 }
 
 Future<Null> getDataFromLocal() async {
   final SharedPreferences prefs = await _prefs;
   final String url = (prefs.getString('url') ?? "");
   final int eventid = (prefs.getInt("eventid") ?? 999999);
+  final String starttimeString = (prefs.getString("starttime") ?? "");
   _url = url;
   _eventid = eventid;
+  try {
+    _starttime = DateTime.parse(starttimeString);
+  } catch(e){
+    print(e);
+  }
+  
+
 }

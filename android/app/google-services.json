@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "114359356111",
+    "firebase_url": "https://motionsloeb-42a67.firebaseio.com",
+    "project_id": "motionsloeb-42a67",
+    "storage_bucket": "motionsloeb-42a67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114359356111:android:aa00fdeb81cfb3fc",
+        "android_client_info": {
+          "package_name": "com.example.motionsloebgooglesheet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114359356111-03913f3gpks8junibasmfpdrgu228h52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsPw_8Kzz8rQWSFpTPbHU8_I0qJHWo6t4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

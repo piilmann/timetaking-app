@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 import 'package:motionsloeb_google_sheet/custom_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EnterId extends StatefulWidget {
   @override
@@ -21,12 +22,13 @@ class _EnterIdState extends State<EnterId> {
 
   void _submitId() {
     if (_idNumber.length > 0) {
-      Map<String, String> body = {"id": _idNumber};
-      http.post(url, body: body).then((response) {
-        print("Response status: ${response.statusCode}");
-        print("Response body: ${response.body}");
-      });
+      Map<String, dynamic> data = {
+        "runnerid": int.parse(_idNumber),
+        "eventid": globals.getEventId(),
+        "time": Timestamp.now()
+      };
 
+      Firestore.instance.collection("results").document().setData(data);
       setState(() {
         _idNumber = "";
       });
@@ -65,85 +67,86 @@ class _EnterIdState extends State<EnterId> {
   Widget build(BuildContext context) {
     return Container(
         child: new Stack(children: <Widget>[
-          new Background(title: "Timetaker"), //Custom baggrund defineret i custom_widgets.dart
-          new Column(
-            // Main content
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              new Container(
-                  child: Center(
-                      child: new Text(_idNumber,
-                          style: TextStyle(
-                              color: Colors.white,
-                              shadows: [BoxShadow(blurRadius: 3.0)],
-                              fontSize: 60.0))),
-                  margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0)),
-              // new Container(
-              //   margin: EdgeInsets.all(140.0),
-              // ), //Main screenª
-              Padding(
-                padding: const EdgeInsets.only(bottom: 32.0),
-                child: new Column(
-                  //Keyboard
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          _buildButton("1"),
-                          _buildButton("2"),
-                          _buildButton("3"),
-                        ]),
-                    new SizedBox(height: 16.0),
-                    new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          _buildButton("4"),
-                          _buildButton("5"),
-                          _buildButton("6"),
-                        ]),
-                    new SizedBox(
-                      height: 16.0,
-                    ),
-                    new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          _buildButton("7"),
-                          _buildButton("8"),
-                          _buildButton("9"),
-                        ]),
-                    new SizedBox(
-                      height: 16.0,
-                    ),
-                    new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          new RaisedButton(
-                            onPressed: () {
-                              _deleteNumber();
-                            },
-                            color: Colors.red,
-                            child: new Icon(
-                              Icons.backspace,
-                              size: 50.0,
-                            ),
-                          ),
-                          _buildButton("0"),
-                          new RaisedButton(
-                              onPressed: () {
-                                _submitId();
-                              },
-                              color: Colors.green,
-                              child: Icon(
-                                Icons.check,
-                                size: 50.0,
-                              ))
-                        ]),
-                  ],
+      new Background(
+          title: "Timetaker"), //Custom baggrund defineret i custom_widgets.dart
+      new Column(
+        // Main content
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          new Container(
+              child: Center(
+                  child: new Text(_idNumber,
+                      style: TextStyle(
+                          color: Colors.white,
+                          shadows: [BoxShadow(blurRadius: 3.0)],
+                          fontSize: 60.0))),
+              margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0)),
+          // new Container(
+          //   margin: EdgeInsets.all(140.0),
+          // ), //Main screenª
+          Padding(
+            padding: const EdgeInsets.only(bottom: 32.0),
+            child: new Column(
+              //Keyboard
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildButton("1"),
+                      _buildButton("2"),
+                      _buildButton("3"),
+                    ]),
+                new SizedBox(height: 16.0),
+                new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildButton("4"),
+                      _buildButton("5"),
+                      _buildButton("6"),
+                    ]),
+                new SizedBox(
+                  height: 16.0,
                 ),
-              ),
-            ],
-          )
-        ]));
+                new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildButton("7"),
+                      _buildButton("8"),
+                      _buildButton("9"),
+                    ]),
+                new SizedBox(
+                  height: 16.0,
+                ),
+                new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new RaisedButton(
+                        onPressed: () {
+                          _deleteNumber();
+                        },
+                        color: Colors.red,
+                        child: new Icon(
+                          Icons.backspace,
+                          size: 50.0,
+                        ),
+                      ),
+                      _buildButton("0"),
+                      new RaisedButton(
+                          onPressed: () {
+                            _submitId();
+                          },
+                          color: Colors.green,
+                          child: Icon(
+                            Icons.check,
+                            size: 50.0,
+                          ))
+                    ]),
+              ],
+            ),
+          ),
+        ],
+      )
+    ]));
   }
 }

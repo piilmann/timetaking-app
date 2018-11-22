@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 
@@ -24,23 +24,14 @@ class _StartRaceState extends State<StartRace> {
   }
 
   void _submitStartTime() {
-    Map<String, String> _body = {"id": "9999991"};
-    switch (_startRace) {
-      case 1:
-        _body = {"id": "9999991"}; //Special code for race start 1
-        break;
-      case 2:
-        _body = {"id": "9999992"}; //Special code for race start 2
-        break;
-      case 3:
-        _body = {"id": "9999993"}; //Special code for race start 3
-        break;
-    }
-    http.post(url, body: _body).then((response) {
-      print("Response status: ${response.statusCode}");
-      print("Response body: ${response.body}");
-      Scaffold.of(context).showSnackBar(snackBar);
-    });
+    Timestamp starttime = Timestamp.now();
+      Map<String, dynamic> data = {
+        "starttime": starttime,
+      };
+    //Sætter starttidspunktet på det event der er logget ind på Firestore
+    Firestore.instance.collection("events").document(globals.getEventId().toString()).setData(data);
+    //Gemmer tidspunktet lokalt
+    globals.setStarttime(starttime.toDate());
   }
 
   final snackBar = SnackBar(content: Text('TIDEN ER REGISTERET'));
@@ -74,6 +65,7 @@ class _StartRaceState extends State<StartRace> {
                     child: new Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        new Text("Startime is: "+globals.getStarttime().toString()),
                         // new RadioListTile<int>(
                         //     title: Text("Start time 1"),
                         //     groupValue: _startRace,
