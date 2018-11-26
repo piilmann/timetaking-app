@@ -81,13 +81,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.3"
-  intl:
-    dependency: "direct main"
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.15.7"
   matcher:
     dependency: transitive
     description:
@@ -177,13 +170,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
-  url_launcher:
-    dependency: "direct main"
-    description:
-      name: url_launcher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
   vector_math:
     dependency: transitive
     description:
@@ -191,15 +177,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-  webview_flutter:
-    dependency: "direct main"
-    description:
-      path: "packages/webview_flutter"
-      ref: HEAD
-      resolved-ref: "9a17c4f24dd5a09f3c3235eabdaab3248e639d7c"
-      url: "git://github.com/flutter/plugins.git"
-    source: git
-    version: "0.0.1"
 sdks:
   dart: ">=2.0.0 <3.0.0"
-  flutter: ">=0.5.6 <2.0.0"
+  flutter: ">=0.2.4 <2.0.0"

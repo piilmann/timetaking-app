@@ -11,6 +11,9 @@ PODS:
     - Firebase/Database
     - Firebase/Firestore
     - Flutter
+  - Crashlytics (3.10.7):
+    - Fabric (~> 1.7.11)
+  - Fabric (1.7.11)
   - Firebase/Auth (5.9.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.4)
@@ -70,6 +73,10 @@ PODS:
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
   - Flutter (1.0.0)
+  - flutter_crashlytics (0.0.1):
+    - Crashlytics
+    - Fabric
+    - Flutter
   - GoogleAppMeasurement (5.2.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -133,22 +140,19 @@ PODS:
   - Protobuf (3.6.1)
   - shared_preferences (0.0.1):
     - Flutter
-  - url_launcher (0.0.1):
-    - Flutter
-  - webview_flutter (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_crashlytics (from `.symlinks/plugins/flutter_crashlytics/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
-  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
-  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BoringSSL
+    - Crashlytics
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -176,16 +180,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
+  flutter_crashlytics:
+    :path: ".symlinks/plugins/flutter_crashlytics/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
-  url_launcher:
-    :path: ".symlinks/plugins/url_launcher/ios"
-  webview_flutter:
-    :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   cloud_firestore: a2d49d9c7219fce31033eb1a2ee953d7733c91d6
+  Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
+  Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
   Firebase: 383fa29aca93e371cab776b48a5c66544d3c2003
   firebase_core: c96aa8b2fcf7f5167d32f22034f502f9304952b8
   FirebaseAnalytics: 831f1f127f4a75698e9875a87bf7e2668730d953
@@ -196,6 +200,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: eaf0b6244e9463e2429fe216666b641e4dec606b
   FirebaseInstanceID: 78ba376fcd5b94c001f9999b2cbd3d1f1e56e78d
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  flutter_crashlytics: 753059d75232a519279a515b51e01e7f784e5385
   GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
   GoogleUtilities: 760ccb53b7c7f40f9c02d8c241f76f841a7a6162
   gRPC: 9d4c549f37c7cef22478634bac7a0405b6e3dbfb
@@ -208,9 +213,7 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
-  url_launcher: 92b89c1029a0373879933c21642958c874539095
-  webview_flutter: 9bd234c07e99632356cba112df56fd1d47d6b6e3
 
-PODFILE CHECKSUM: 1e5af4103afd21ca5ead147d7b81d06f494f51a2
+PODFILE CHECKSUM: 131f500483610c794f0f2a1e14ad4793eb08a205
 
 COCOAPODS: 1.5.3

@@ -80,8 +80,21 @@ class _StartRaceState extends State<StartRace> {
                     child: new Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
+                        new Opacity(
+                          opacity: 0.0,
+                          child: new Text("Advarsel!",
+                              style:
+                                  TextStyle(color: Colors.red, fontSize: 30.0)),
+                        ),
+                        new Expanded(
+                          child: null,
+                        ),
                         new Text(
-                          "Startime is: " + globals.getStarttime().toString().substring(0, 19),
+                          "Startime is: " +
+                              globals
+                                  .getStarttime()
+                                  .toString()
+                                  .substring(0, 19),
                           style: TextStyle(
                               fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),

@@ -46,9 +46,6 @@ class _ViewSheetState extends State<ViewSheet> {
     super.initState();
   }
 
-  final _hardcodedUrl =
-      "https://docs.google.com/spreadsheets/d/1Wtvgdp0uEL1T127qW8Id1fJR8HDl_DOhG7AVY_A07Q4/view#gid=0";
-
 /*
 CLOUD FIRESTORE
 */
