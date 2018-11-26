@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 import 'package:motionsloeb_google_sheet/custom_widgets.dart';
+import 'package:flutter/animation.dart';
 
 class StartRace extends StatefulWidget {
   @override
@@ -10,15 +11,36 @@ class StartRace extends StatefulWidget {
 
 enum startRaceTime { one, two, three }
 
-class _StartRaceState extends State<StartRace> {
+class _StartRaceState extends State<StartRace> with TickerProviderStateMixin {
   bool _activeButton = false;
 
-  var url;
+  Animation<double> _opacity;
+  AnimationController _opacityController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    _opacityController = new AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 800));
+
+    _opacity =
+        new CurvedAnimation(parent: _opacityController, curve: Curves.easeInOut)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _opacityController.reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              _opacityController.forward();
+            }
+          });
+    _opacityController.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _opacityController.dispose();
   }
 
   void _submitStartTime() {
@@ -80,14 +102,30 @@ class _StartRaceState extends State<StartRace> {
                     child: new Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        new Opacity(
-                          opacity: 0.0,
-                          child: new Text("Advarsel!",
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 30.0)),
+                        new Container(
+                          padding: EdgeInsets.only(top: 30.0),
+                          // Advarsel
+                          child: _activeButton ? new Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              new FadeTransition(
+                                opacity: _opacity,
+                                child: new Text("Advarsel!",
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 40.0,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: <Shadow>[
+                                          Shadow(blurRadius: 4.0)
+                                        ])),
+                              ),
+                              new Text(
+                                  "Når tiden startes bliver alle tidligere indtastede tidspunkter SLETTET!"),
+                            ],
+                          ) : new Container(),
                         ),
                         new Expanded(
-                          child: null,
+                          child: new Container(),
                         ),
                         new Text(
                           "Startime is: " +
