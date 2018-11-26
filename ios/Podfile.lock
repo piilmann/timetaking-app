@@ -76,18 +76,6 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleMobileVision/BarcodeDetector (1.3.3):
-    - GoogleMobileVision/Detector (~> 1.3)
-  - GoogleMobileVision/Detector (1.3.3):
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - GTMSessionFetcher/Core (~> 1.1)
-    - Protobuf (~> 3.1)
-  - GoogleToolboxForMac/Defines (2.1.4)
-  - GoogleToolboxForMac/Logger (2.1.4):
-    - GoogleToolboxForMac/Defines (= 2.1.4)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
-    - GoogleToolboxForMac/Defines (= 2.1.4)
   - GoogleUtilities/AppDelegateSwizzler (5.3.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -142,12 +130,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - native_device_orientation (0.0.1):
-    - Flutter
   - Protobuf (3.6.1)
-  - qr_mobile_vision (0.0.1):
-    - Flutter
-    - GoogleMobileVision/BarcodeDetector
   - shared_preferences (0.0.1):
     - Flutter
   - url_launcher (0.0.1):
@@ -159,8 +142,6 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
-  - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
-  - qr_mobile_vision (from `.symlinks/plugins/qr_mobile_vision/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
@@ -177,8 +158,6 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstanceID
     - GoogleAppMeasurement
-    - GoogleMobileVision
-    - GoogleToolboxForMac
     - GoogleUtilities
     - gRPC
     - "gRPC-C++"
@@ -197,10 +176,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
-  native_device_orientation:
-    :path: ".symlinks/plugins/native_device_orientation/ios"
-  qr_mobile_vision:
-    :path: ".symlinks/plugins/qr_mobile_vision/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   url_launcher:
@@ -222,8 +197,6 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 78ba376fcd5b94c001f9999b2cbd3d1f1e56e78d
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
-  GoogleMobileVision: 7e0eeac8d897ac1f9a4f9d55d3d2df81325f92ec
-  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GoogleUtilities: 760ccb53b7c7f40f9c02d8c241f76f841a7a6162
   gRPC: 9d4c549f37c7cef22478634bac7a0405b6e3dbfb
   "gRPC-C++": ee0b01db3122f0b6c2be28b5b11039f62fa15fe6
@@ -233,9 +206,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  native_device_orientation: 1126735962ee926c7067a26ee9b0be020d3f5890
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  qr_mobile_vision: 245b97161167cbe4865327b9cc4741f7f0897878
   shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
   url_launcher: 92b89c1029a0373879933c21642958c874539095
   webview_flutter: 9bd234c07e99632356cba112df56fd1d47d6b6e3

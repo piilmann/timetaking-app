@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:114359356111:android:aa00fdeb81cfb3fc",
+        "mobilesdk_app_id": "1:114359356111:android:9b1ddd4c75f6b76e",
         "android_client_info": {
-          "package_name": "com.example.motionsloebgooglesheet"
+          "package_name": "com.piilmann.motionsloebgooglesheet"
         }
       },
       "oauth_client": [

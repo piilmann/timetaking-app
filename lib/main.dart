@@ -10,13 +10,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
 void main() {
+    firebaseSettings();
   debugPaintSizeEnabled = false;
   runApp(new MyApp());
-  firebaseSettings();
 }
 
 void firebaseSettings(){
-  var db = Firestore.instance;
+  final db = Firestore.instance;
   db.settings(timestampsInSnapshotsEnabled: true);
 }
 
@@ -50,6 +50,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  var db;
   int _currentIndex = 0;
   final List<Widget> _children = [
     new InfoPage(),
@@ -69,6 +70,26 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     globals.getDataFromLocal();
+
+    db = Firestore.instance.collection("events");
+    db.document(globals.getEventId().toString()).snapshots().listen((querySnapshot){
+      Map<String, dynamic> data = querySnapshot.data;
+        data.forEach((key, value) {
+          if(key == "starttime"){
+            Timestamp timestamp = value;
+            DateTime starttime = timestamp.toDate();
+            globals.setStarttime(starttime);
+          }
+          if(key == "navn"){
+            globals.setName(value);
+          }
+          if(key == "beskrivelse"){
+            globals.setBeskrivelse(value);
+          }
+        });
+      print("Event data fra Firebase: "+ data.toString());
+    });
+
   }
 
   void aboutAction(String choice) {
@@ -82,21 +103,6 @@ class _MainPageState extends State<MainPage> {
       globals.setEventId(null);
       Navigator.of(context).pushReplacementNamed('/');
     }
-  }
-
-  String getFormattedEventId() {
-    String result;
-    int id = globals.getEventId();
-
-    if (id.toString().length == 6) {
-      String one = id.toString().substring(0, 3);
-      String two = id.toString().substring(3, 6);
-      result = one + " " + two;
-    } else {
-      result = globals.getEventId().toString();
-    }
-
-    return result;
   }
 
   Future<Null> _aboutDialog() async {
@@ -131,7 +137,7 @@ class _MainPageState extends State<MainPage> {
     return new AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
-      title: Text("Event: " + getFormattedEventId()),
+      title: Text("Event: " + globals.getFormattedEventId()),
       actions: <Widget>[
         new PopupMenuButton<String>(
           onSelected: aboutAction,

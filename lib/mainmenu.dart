@@ -10,9 +10,10 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  final _controller = new TextEditingController();
+  final _controller = new TextEditingController(text: "640002");
   final _formKey = GlobalKey<FormState>();
   bool showAvailibilityError = false;
+  
 
   final _createEvent = "Opret event";
   final _connectEvent = "Tilslut event";
@@ -46,8 +47,8 @@ class _MainMenuState extends State<MainMenu> {
     int enteredId = int.parse(_controller.text);
 
     if (_formKey.currentState.validate()) {
-      globals.isIdAvalible(enteredId).then((availibility) {
-        if (availibility == true) {
+      globals.doesIdExist(enteredId).then((availibility) {
+        if (availibility == false) {
           //ID does not exists, therefore there is NOT an event here
           setState(() {
             showAvailibilityError = true;
@@ -55,7 +56,7 @@ class _MainMenuState extends State<MainMenu> {
         } else {
           //ID exists and therefore we move on
           globals.setEventId(enteredId);
-          globals.getUrlFromDB(enteredId);
+          //globals.getUrlFromDB(enteredId);
 
           Navigator.of(context).pop();
           Navigator.of(context).pushReplacementNamed("/main");

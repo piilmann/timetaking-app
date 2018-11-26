@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widgets;
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
-import 'package:url_launcher/url_launcher.dart';
 
 final dummySnapshot = [
   {"time": Timestamp.now(), "id": 15},
@@ -56,7 +54,7 @@ CLOUD FIRESTORE
 */
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('results').snapshots(),
+      stream: Firestore.instance.collection('results').where("eventid", isEqualTo: globals.getEventId()).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 

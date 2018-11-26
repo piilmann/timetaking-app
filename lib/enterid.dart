@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -7,7 +7,7 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="/Applications/flutter/.pub-cache/git/plugins-d451cac0867a9fb8db055dde1785ea599d68db7c/packages/webview_flutter/android" />
+            <option value="/Applications/flutter/.pub-cache/git/plugins-9a17c4f24dd5a09f3c3235eabdaab3248e639d7c/packages/webview_flutter/android" />
             <option value="/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.8.2+3/android" />
             <option value="/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.2.5+1/android" />
             <option value="/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/native_device_orientation-0.0.3/android" />

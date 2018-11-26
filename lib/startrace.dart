@@ -12,7 +12,6 @@ enum startRaceTime { one, two, three }
 
 class _StartRaceState extends State<StartRace> {
   bool _activeButton = false;
-  int _startRace = 1;
 
   var url;
 
@@ -20,16 +19,28 @@ class _StartRaceState extends State<StartRace> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    url = globals.getUrl();
   }
 
   void _submitStartTime() {
     Timestamp starttime = Timestamp.now();
-      Map<String, dynamic> data = {
-        "starttime": starttime,
-      };
+    Map<String, dynamic> data = {
+      "starttime": starttime,
+    };
     //Sætter starttidspunktet på det event der er logget ind på Firestore
-    Firestore.instance.collection("events").document(globals.getEventId().toString()).setData(data);
+    final db = Firestore.instance;
+    final id = globals.getEventId();
+    db.collection("events").document(id.toString()).setData(data, merge: true);
+    //Sletter tidligere tidspunkter
+    db
+        .collection("results")
+        .where("eventid", isEqualTo: id)
+        .getDocuments()
+        .then((snapshot) {
+      snapshot.documents.forEach((doc) {
+        print("delete: " + doc.documentID);
+        doc.reference.delete();
+      });
+    });
     //Gemmer tidspunktet lokalt
     globals.setStarttime(starttime.toDate());
   }
@@ -51,9 +62,13 @@ class _StartRaceState extends State<StartRace> {
     }
 
     return Container(
-        child: new Stack(children: <Widget>[
-          new Background(title: "Race start"), //Custom baggrund defineret i custom_widgets.dart
-          new Container( // Hvid boks med content
+        child: new Stack(
+      children: <Widget>[
+        new Background(
+            title:
+                "Race start"), //Custom baggrund defineret i custom_widgets.dart
+        new Container(
+            // Hvid boks med content
             // decoration: BoxDecoration(
             //   color: Colors.white,
             //   borderRadius: BorderRadius.all(new Radius.circular(16.0)),
@@ -63,40 +78,18 @@ class _StartRaceState extends State<StartRace> {
                 child: new Padding(
                     padding: EdgeInsets.all(8.0),
                     child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        new Text("Startime is: "+globals.getStarttime().toString()),
-                        // new RadioListTile<int>(
-                        //     title: Text("Start time 1"),
-                        //     groupValue: _startRace,
-                        //     value: 1,
-                        //     onChanged: (int value) {
-                        //       setState(() {
-                        //         _startRace = value;
-                        //       });
-                        //     }),
-                        // new RadioListTile<int>(
-                        //     title: Text("Start time 2"),
-                        //     groupValue: _startRace,
-                        //     value: 2,
-                        //     onChanged: (int value) {
-                        //       setState(() {
-                        //         _startRace = value;
-                        //       });
-                        //     }),
-                        // new RadioListTile<int>(
-                        //   title: Text("Start time 3"),
-                        //   groupValue: _startRace,
-                        //   onChanged: (int value) {
-                        //     setState(() {
-                        //       _startRace = value;
-                        //     });
-                        //   },
-                        //   value: 3,
-                        // ),
-                        // new SizedBox(height: 24.0),
                         new Text(
-                            "Flip the switch to activate the start button"),
+                          "Startime is: " + globals.getStarttime().toString().substring(0, 19),
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                        ),
+                        new SizedBox(
+                          height: 12.0,
+                        ),
+                        new Text("Flip the switch to activate the start button",
+                            style: TextStyle(fontSize: 16.0)),
                         Transform.scale(
                             scale: 2.0,
                             child: new Switch(
@@ -116,6 +109,7 @@ class _StartRaceState extends State<StartRace> {
                         )
                       ],
                     ))))
-        ],));
+      ],
+    ));
   }
 }

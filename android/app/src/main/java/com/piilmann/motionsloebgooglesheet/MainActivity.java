@@ -1,4 +1,4 @@
-package com.example.motionsloebgooglesheet;
+package com.piilmann.motionsloebgooglesheet;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
