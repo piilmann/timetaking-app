@@ -5,14 +5,38 @@ import 'package:motionsloeb_google_sheet/settings.dart';
 import 'package:motionsloeb_google_sheet/mainmenu.dart';
 import 'package:motionsloeb_google_sheet/viewsheet.dart';
 import 'package:motionsloeb_google_sheet/info.dart';
+import 'package:flutter_crashlytics/flutter_crashlytics.dart';
+import 'dart:async';
 import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
-void main() {
+void main() async {
     firebaseSettings();
   debugPaintSizeEnabled = false;
-  runApp(new MyApp());
+  bool isInDebugMode = false;
+  //Crashlytics
+  FlutterError.onError = (FlutterErrorDetails details) {
+    if (isInDebugMode) {
+      // In development mode simply print to console.
+      FlutterError.dumpErrorToConsole(details);
+    } else {
+      // In production mode report to the application zone to report to
+      // Crashlytics.
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+    }
+  };
+
+  await FlutterCrashlytics().initialize();
+
+  runZoned<Future<Null>>(() async {
+    //Her er indgangen til vores app
+    runApp(MyApp());
+  }, onError: (error, stackTrace) async {
+    // Whenever an error occurs, call the `reportCrash` function. This will send
+    // Dart errors to our dev console or Crashlytics depending on the environment.
+    await FlutterCrashlytics().reportCrash(error, stackTrace, forceCrash: false);
+  });
 }
 
 void firebaseSettings(){

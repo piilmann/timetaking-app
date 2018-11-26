@@ -74,6 +74,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.4'
 }
 
+
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 // Work around
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
