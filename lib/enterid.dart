@@ -16,7 +16,6 @@ class _EnterIdState extends State<EnterId> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    url = globals.getUrl();
   }
 
   void _submitId() {

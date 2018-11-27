@@ -3,17 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widgets;
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
-final dummySnapshot = [
-  {"time": Timestamp.now(), "id": 15},
-  {"time": Timestamp.now(), "id": 14},
-  {"time": Timestamp.now(), "id": 11},
-  {"time": Timestamp.now(), "id": 10},
-  {"time": Timestamp.now(), "id": 1},
-  {"time": Timestamp.now(), "id": 18},
-  {"time": Timestamp.now(), "id": 19},
-  {"time": Timestamp.now(), "id": 0},
-];
-
 final time = Timestamp.now();
 
 class Timing {

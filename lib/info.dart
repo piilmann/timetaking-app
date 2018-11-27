@@ -24,7 +24,7 @@ class _InfoPageState extends State<InfoPage> {
 
   Widget _buildContent() {
     return new Container(
-        padding: EdgeInsets.fromLTRB(32.0, 170.0, 16.0, 0.0),
+        padding: EdgeInsets.fromLTRB(26.0, 170.0, 0.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
