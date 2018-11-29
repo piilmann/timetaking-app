@@ -18,19 +18,37 @@ class _EnterIdState extends State<EnterId> {
     super.initState();
   }
 
-  void _submitId() {
+  void _submitId() async {
+    //Check om der er skrevet et tal
     if (_idNumber.length > 0) {
-      Map<String, dynamic> data = {
-        "runnerid": int.parse(_idNumber),
-        "eventid": globals.getEventId(),
-        "time": Timestamp.now()
-      };
+      bool idExistsInDB = true;
+      //Denne firebase request tjekker om id'et allerede eksisterer
+      await Firestore.instance
+          .collection("results")
+          .where("eventid", isEqualTo: globals.getEventId())
+          .where("runnerid", isEqualTo: int.parse(_idNumber))
+          .getDocuments().then((snapshot){
+            if(snapshot.documents.length == 0){
+              idExistsInDB = false;
+            }
+          });
+        //Hvis id'et ikke alleredes findes
+        if (!idExistsInDB) {
+          // Her bygges vores payload
+          Map<String, dynamic> data = {
+            "runnerid": int.parse(_idNumber),
+            "eventid": globals.getEventId(),
+            "time": Timestamp.now()
+          };
+          //Her sendes payload til Firestore
+          Firestore.instance.collection("results").document().setData(data);
+        }
 
-      Firestore.instance.collection("results").document().setData(data);
-      setState(() {
-        _idNumber = "";
-      });
     }
+
+    setState(() {
+      _idNumber = "";
+    });
   }
 
   void _addNumber(String _id) {

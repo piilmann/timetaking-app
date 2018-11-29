@@ -1,3 +1,6 @@
+/*
+Denne side er app'en første fil der bliver kørt
+*/
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:motionsloeb_google_sheet/settings.dart';
@@ -17,7 +20,7 @@ void main() async {
 
 void setupCrashlytics(Widget mainApp) async{
   //Rapporterer kun exceptions hvis app'en kører i Release mode
-  bool isInDebugMode = false;
+  bool isInDebugMode = true;
   FlutterError.onError = (FlutterErrorDetails details) {
     if (isInDebugMode) {
       FlutterError.dumpErrorToConsole(details);

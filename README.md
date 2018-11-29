@@ -1,15 +1,7 @@
 # Timetaking App made with Flutter
 
+  <img src="https://i.imgur.com/i0rm9Gh.jpg" />
 
-<div style="text-align: center"><table><tr>
-  <td style="text-align: center">
-  <img src="https://i.imgur.com/wwKohN0.png" width="200" height="430" />
-</td>
-<td style="text-align: center">
-  <img src="https://i.imgur.com/iAGGxVx.png" width="200" height="430" />
-  </a>
-</td>
-</tr></table></div>
 
 This app is made to make it easier to take time of runners in a running competetion, without using time taking chips.
 
