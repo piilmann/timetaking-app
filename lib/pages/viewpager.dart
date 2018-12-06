@@ -5,7 +5,7 @@ import 'package:motionsloeb_google_sheet/pages/startrace.dart';
 import 'package:motionsloeb_google_sheet/pages/viewsheet.dart';
 import 'package:motionsloeb_google_sheet/pages/info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/globals.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -32,22 +32,22 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    globals.getDataFromLocal();
+    getDataFromLocal();
 
     db = Firestore.instance.collection("events");
-    db.document(globals.getEventId().toString()).snapshots().listen((querySnapshot){
+    db.document(getEventId().toString()).snapshots().listen((querySnapshot){
       Map<String, dynamic> data = querySnapshot.data;
         data.forEach((key, value) {
           if(key == "starttime"){
             Timestamp timestamp = value;
             DateTime starttime = timestamp.toDate();
-            globals.setStarttime(starttime);
+            setStarttime(starttime);
           }
           if(key == "navn"){
-            globals.setName(value);
+            setName(value);
           }
           if(key == "beskrivelse"){
-            globals.setBeskrivelse(value);
+            setBeskrivelse(value);
           }
         });
       print("Event data fra Firebase: "+ data.toString());
@@ -56,13 +56,13 @@ class _MainPageState extends State<MainPage> {
   }
 
   void aboutAction(String choice) {
-    if (choice == globals.about) {
+    if (choice == about) {
       print('Piilmann');
       _aboutDialog();
     }
-    if (choice == globals.logout) {
+    if (choice == logout) {
       print('Log ud');
-      globals.setEventId(null);
+      setEventId(null);
       Navigator.of(context).pushReplacementNamed('/');
     }
   }
@@ -99,12 +99,12 @@ class _MainPageState extends State<MainPage> {
     return new AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
-      title: Text("Event: " + globals.getFormattedEventId()),
+      title: Text("Event: " + getFormattedEventId()),
       actions: <Widget>[
         new PopupMenuButton<String>(
           onSelected: aboutAction,
           itemBuilder: (BuildContext context) {
-            return globals.choices.map((String choice) {
+            return choices.map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
                 child: new Row(children: <Widget>[new Text(choice)]),
