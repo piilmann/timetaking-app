@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widgets;
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
@@ -20,7 +19,6 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     try {
       var currentId = globals.getEventId();
@@ -32,15 +30,6 @@ class _MainMenuState extends State<MainMenu> {
       print(e.toString());
     }
 
-  }
-
-  void testFirestore(){
-    Firestore.instance
-    .collection('races')
-    .where("eventid", isEqualTo: "123456")
-    .snapshots()
-    .listen((data) =>
-        data.documents.forEach((doc) => print("Firestore: "+doc["name"])));
   }
 
   void submit() {

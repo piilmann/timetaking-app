@@ -3,9 +3,9 @@ Denne side er app'en første fil der bliver kørt
 */
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:motionsloeb_google_sheet/settings.dart';
-import 'package:motionsloeb_google_sheet/mainmenu.dart';
-import 'package:motionsloeb_google_sheet/mainpage.dart';
+import 'package:motionsloeb_google_sheet/pages/opretEvent.dart';
+import 'package:motionsloeb_google_sheet/pages/hovedmenu.dart';
+import 'package:motionsloeb_google_sheet/pages/viewpager.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';

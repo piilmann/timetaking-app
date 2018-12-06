@@ -19,7 +19,6 @@ class _StartRaceState extends State<StartRace> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _opacityController = new AnimationController(
@@ -143,7 +142,7 @@ class _StartRaceState extends State<StartRace> with TickerProviderStateMixin {
                             style: TextStyle(fontSize: 16.0)),
                         Transform.scale(
                             scale: 2.0,
-                            child: new Switch(
+                            child: new Switch.adaptive(
                                 onChanged: (bool value) {
                                   setState(() {
                                     _activeButton = value;

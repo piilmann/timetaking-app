@@ -14,7 +14,6 @@ class _EnterIdState extends State<EnterId> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:motionsloeb_google_sheet/enterid.dart';
-import 'package:motionsloeb_google_sheet/startrace.dart';
-import 'package:motionsloeb_google_sheet/viewsheet.dart';
-import 'package:motionsloeb_google_sheet/info.dart';
+import 'package:motionsloeb_google_sheet/pages/enterid.dart';
+import 'package:motionsloeb_google_sheet/pages/startrace.dart';
+import 'package:motionsloeb_google_sheet/pages/viewsheet.dart';
+import 'package:motionsloeb_google_sheet/pages/info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:motionsloeb_google_sheet/globals.dart' as globals;
 
