@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widgets;
-import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/custom_widgets.dart';
+import 'package:motionsloeb_google_sheet/globals.dart';
 
 class MainMenu extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _MainMenuState extends State<MainMenu> {
   void initState() {
     super.initState();
     try {
-      var currentId = globals.getEventId();
+      var currentId = getEventId();
 
       if (currentId > 99999) {
         Navigator.of(context).pushReplacementNamed("/main");
@@ -36,7 +36,7 @@ class _MainMenuState extends State<MainMenu> {
     int enteredId = int.parse(_controller.text);
 
     if (_formKey.currentState.validate()) {
-      globals.doesIdExist(enteredId).then((availibility) {
+      doesIdExist(enteredId).then((availibility) {
         if (availibility == false) {
           //ID does not exists, therefore there is NOT an event here
           setState(() {
@@ -44,7 +44,7 @@ class _MainMenuState extends State<MainMenu> {
           });
         } else {
           //ID exists and therefore we move on
-          globals.setEventId(enteredId);
+          setEventId(enteredId);
           //globals.getUrlFromDB(enteredId);
 
           Navigator.of(context).pop();
@@ -110,7 +110,7 @@ class _MainMenuState extends State<MainMenu> {
     return new Scaffold(
         body: new Stack(
       children: <Widget>[
-        widgets.MainBackground(title: "Race Timetracker"),
+        MainBackground(title: "Race Timetracker"),
         new Padding(
           padding: EdgeInsets.only(bottom: 64.0),
           child: new Column(

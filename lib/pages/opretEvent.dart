@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/globals.dart';
 import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 import 'dart:math';
 
@@ -32,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void connectToEvent() async {
-    await globals.createEvent(navnController.text, beskrivelseController.text);
+    await createEvent(navnController.text, beskrivelseController.text);
     Navigator.of(context).pop();
     Navigator.of(context).pushReplacementNamed("/main");
   }

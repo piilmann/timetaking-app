@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/globals.dart';
 import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -24,7 +24,7 @@ class _EnterIdState extends State<EnterId> {
       //Denne firebase request tjekker om id'et allerede eksisterer
       await Firestore.instance
           .collection("results")
-          .where("eventid", isEqualTo: globals.getEventId())
+          .where("eventid", isEqualTo: getEventId())
           .where("runnerid", isEqualTo: int.parse(_idNumber))
           .getDocuments().then((snapshot){
             if(snapshot.documents.length == 0){
@@ -36,7 +36,7 @@ class _EnterIdState extends State<EnterId> {
           // Her bygges vores payload
           Map<String, dynamic> data = {
             "runnerid": int.parse(_idNumber),
-            "eventid": globals.getEventId(),
+            "eventid": getEventId(),
             "time": Timestamp.now()
           };
           //Her sendes payload til Firestore

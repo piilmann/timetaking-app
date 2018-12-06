@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/globals.dart';
 import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 import 'package:flutter/animation.dart';
 
@@ -49,7 +49,7 @@ class _StartRaceState extends State<StartRace> with TickerProviderStateMixin {
     };
     //Sætter starttidspunktet på det event der er logget ind på Firestore
     final db = Firestore.instance;
-    final id = globals.getEventId();
+    final id = getEventId();
     db.collection("events").document(id.toString()).setData(data, merge: true);
     //Sletter tidligere tidspunkter
     db
@@ -63,7 +63,7 @@ class _StartRaceState extends State<StartRace> with TickerProviderStateMixin {
       });
     });
     //Gemmer tidspunktet lokalt
-    globals.setStarttime(starttime.toDate());
+    setStarttime(starttime.toDate());
   }
 
   final snackBar = SnackBar(content: Text('TIDEN ER REGISTERET'));
@@ -104,34 +104,32 @@ class _StartRaceState extends State<StartRace> with TickerProviderStateMixin {
                         new Container(
                           padding: EdgeInsets.only(top: 30.0),
                           // Advarsel
-                          child: _activeButton ? new Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              new FadeTransition(
-                                opacity: _opacity,
-                                child: new Text("Advarsel!",
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 40.0,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: <Shadow>[
-                                          Shadow(blurRadius: 4.0)
-                                        ])),
-                              ),
-                              new Text(
-                                  "Når tiden startes bliver alle tidligere indtastede tidspunkter SLETTET!"),
-                            ],
-                          ) : new Container(),
+                          child: _activeButton
+                              ? new Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    new FadeTransition(
+                                      opacity: _opacity,
+                                      child: new Text("Advarsel!",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 40.0,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: <Shadow>[
+                                                Shadow(blurRadius: 4.0)
+                                              ])),
+                                    ),
+                                    new Text(
+                                        "Når tiden startes bliver alle tidligere indtastede tidspunkter SLETTET!"),
+                                  ],
+                                )
+                              : new Container(),
                         ),
                         new Expanded(
                           child: new Container(),
                         ),
                         new Text(
-                          "Startime is: " +
-                              globals
-                                  .getStarttime()
-                                  .toString()
-                                  .substring(0, 19),
+                          "Startime is: " + getStarttime().toString().substring(0, 19),
                           style: TextStyle(
                               fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),

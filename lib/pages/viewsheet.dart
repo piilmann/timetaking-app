@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widgets;
-import 'package:motionsloeb_google_sheet/globals.dart' as globals;
+import 'package:motionsloeb_google_sheet/custom_widgets.dart';
+import 'package:motionsloeb_google_sheet/globals.dart';
 
 final time = Timestamp.now();
 
@@ -40,7 +40,7 @@ CLOUD FIRESTORE
 */
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('results').where("eventid", isEqualTo: globals.getEventId()).snapshots(),
+      stream: Firestore.instance.collection('results').where("eventid", isEqualTo: getEventId()).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -79,8 +79,8 @@ CLOUD FIRESTORE
 
   String formatTime(Timestamp timestamp) {
     DateTime time = timestamp.toDate();
-    if (globals.getStarttime() != null) {
-      Duration duration = time.difference(globals.getStarttime());
+    if (getStarttime() != null) {
+      Duration duration = time.difference(getStarttime());
       String result = duration.toString();
       return result.substring(0, result.lastIndexOf('.'));
     }
@@ -103,7 +103,7 @@ CLOUD FIRESTORE
     return Container(
         child: new Stack(
       children: <Widget>[
-        widgets.Background(
+        Background(
           title: "Times",
         ),
         // //Open in browser button

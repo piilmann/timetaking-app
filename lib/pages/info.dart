@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:motionsloeb_google_sheet/globals.dart' as globals;
-import 'package:motionsloeb_google_sheet/custom_widgets.dart' as widget;
+import 'package:motionsloeb_google_sheet/globals.dart';
+import 'package:motionsloeb_google_sheet/custom_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class InfoPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class _InfoPageState extends State<InfoPage> {
     return Container(
         child: new Stack(
       children: <Widget>[
-        widget.Background(
+        Background(
           title: "Info",
         ),
         _buildContent()
@@ -32,7 +32,7 @@ class _InfoPageState extends State<InfoPage> {
             new StreamBuilder(
               stream: Firestore.instance
                   .collection('events')
-                  .document(globals.getEventId().toString())
+                  .document(getEventId().toString())
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -61,7 +61,7 @@ class _InfoPageState extends State<InfoPage> {
             new StreamBuilder(
               stream: Firestore.instance
                   .collection('events')
-                  .document(globals.getEventId().toString())
+                  .document(getEventId().toString())
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -86,7 +86,7 @@ class _InfoPageState extends State<InfoPage> {
               style: _overskrift(),
             ),
             new Text(
-              globals.getFormattedEventId(),
+              getFormattedEventId(),
               style: TextStyle(fontSize: 24.0),
             ),
           ],
